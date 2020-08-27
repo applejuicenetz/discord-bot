@@ -49,7 +49,7 @@ const bot = {
         stats.files = bot.formatNumber(stats.files);
         stats.size = bot.formatBytes(stats.size);
 
-        let returnValue = 'appleJuice Network Stats -> User: `' + stats.user + '` | Files: `' + stats.files + '` | Size: `' + stats.size + '`'
+        let returnValue = 'appleJuice Network Stats | `' + stats.user + '` User | `' + stats.files + '` Files | `' + stats.size + '` Size';
 
         console.log(returnValue);
         message.reply(returnValue);
@@ -65,7 +65,7 @@ const bot = {
             throw e;
         }
 
-        let returnValue = 'appleJuice Server Online: `' + servers.length + '`';
+        let returnValue = 'appleJuice Server: `' + servers.length + '` Online';
 
         console.log(returnValue);
         message.reply(returnValue);
@@ -79,7 +79,7 @@ const bot = {
             client.user.setPresence({
                 status: 'online',
                 activity: {
-                    name: 'P2P',
+                    name: 'Hilfe mit !help',
                     type: 'PLAYING'
                 }
             });
