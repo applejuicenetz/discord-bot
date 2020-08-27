@@ -1,0 +1,7 @@
+.github
+.gitignore
+.dockerignore
+Dockerfile
+CHANGELOG.md
+README.md
+LICENSE
