@@ -13,11 +13,9 @@ const bot = {
 
         try {
             payload = await fetch(bot.STATS);
-
         } catch (e) {
             throw e;
         }
-
 
         return await payload.json();
     },
@@ -27,11 +25,9 @@ const bot = {
 
         try {
             payload = await fetch(bot.SERVERS);
-
         } catch (e) {
             throw e;
         }
-
 
         return await payload.json();
     },
@@ -41,7 +37,6 @@ const bot = {
 
         try {
             stats = await this.getNetworkStats();
-
         } catch (e) {
             throw e;
         }
@@ -60,7 +55,6 @@ const bot = {
 
         try {
             servers = await this.getNetworkServer();
-
         } catch (e) {
             throw e;
         }
@@ -72,7 +66,6 @@ const bot = {
     },
 
     init: async function () {
-
         client.on('ready', () => {
             console.log(`Logged in as ${client.user.tag}!`);
 
