@@ -1,4 +1,4 @@
-name: '[docker] CI for releases'
+name: 'container'
 
 on:
     push:

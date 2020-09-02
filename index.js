@@ -1,4 +1,5 @@
 const discord = require('discord.js');
+const AsciiTable = require('ascii-table')
 const fetch = require('node-fetch');
 const client = new discord.Client();
 
@@ -65,6 +66,25 @@ const bot = {
         message.reply(returnValue);
     },
 
+    sendServerList: async function (message) {
+        let servers;
+
+        try {
+            servers = await this.getNetworkServer();
+        } catch (e) {
+            throw e;
+        }
+
+        let table = new AsciiTable();
+        table.setHeading('Servername', 'Address', 'Port');
+
+        servers.forEach(server => {
+            table.addRow(server.name, server.ip, server.port);
+        });
+
+        message.reply("```" + table.toString() + "```");
+    },
+
     init: async function () {
         client.on('ready', () => {
             console.log(`Logged in as ${client.user.tag}!`);
@@ -103,8 +123,12 @@ const bot = {
                     bot.sendServerStats(message);
                     break;
 
+                case 'serverlist':
+                    bot.sendServerList(message);
+                    break;
+
                 case 'help':
-                    message.reply('Bot Commands: | `!stats` | `!server` | `!ping`');
+                    message.reply('Bot Commands: | `!stats` | `!server` | `!serverlist` | `!ping`');
                     break;
 
                 case 'ping':
