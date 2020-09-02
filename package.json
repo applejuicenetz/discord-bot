@@ -1,6 +1,6 @@
 {
   "name": "applejuicenet-discord-bot",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Einfacher Discord Bot für Netzwerk Statistiken",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/applejuicenet/discord-bot#readme",
   "dependencies": {
+    "ascii-table": "^0.0.9",
     "discord.js": "^12.3.1",
     "node-fetch": "^2.6.0"
   }
