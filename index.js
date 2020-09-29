@@ -4,8 +4,7 @@ const fetch = require('node-fetch');
 const client = new discord.Client();
 
 const bot = {
-    STATS: 'https://www.applejuicenet.de/serverlist/networkinfo.php',
-    SERVERS: 'https://www.applejuicenet.de/serverlist/jsonlist.php',
+    NETWORK_INFO: 'https://www.applejuicenet.de/serverlist/networkinfo.php',
 
     PREFIX: '!',
 
@@ -13,19 +12,7 @@ const bot = {
         let payload;
 
         try {
-            payload = await fetch(bot.STATS);
-        } catch (e) {
-            throw e;
-        }
-
-        return await payload.json();
-    },
-
-    getNetworkServer: async function () {
-        let payload;
-
-        try {
-            payload = await fetch(bot.SERVERS);
+            payload = await fetch(bot.NETWORK_INFO);
         } catch (e) {
             throw e;
         }
@@ -52,25 +39,25 @@ const bot = {
     },
 
     sendServerStats: async function (message) {
-        let servers;
+        let stats;
 
         try {
-            servers = await this.getNetworkServer();
+            stats = await this.getNetworkStats();
         } catch (e) {
             throw e;
         }
 
-        let returnValue = 'appleJuice Server: `' + servers.length + '` Online';
+        let returnValue = 'appleJuice Server: `' + stats.server + '` Online';
 
         console.log(returnValue);
         message.reply(returnValue);
     },
 
     sendServerList: async function (message) {
-        let servers;
+        let stats;
 
         try {
-            servers = await this.getNetworkServer();
+            stats = await this.getNetworkStats();
         } catch (e) {
             throw e;
         }
@@ -78,7 +65,7 @@ const bot = {
         let table = new AsciiTable();
         table.setHeading('Servername', 'Address', 'Port');
 
-        servers.forEach(server => {
+        stats.servers.forEach(server => {
             table.addRow(server.name, server.ip, server.port);
         });
 
@@ -115,6 +102,10 @@ const bot = {
             const command = args.shift().toLowerCase();
 
             switch (command) {
+                case 'aj':
+                    message.author.send("development in progress");
+                    break
+
                 case 'stats':
                     bot.sendNetworkStats(message);
                     break
@@ -128,7 +119,7 @@ const bot = {
                     break;
 
                 case 'help':
-                    message.reply('Bot Commands: | `!stats` | `!server` | `!serverlist` | `!ping`');
+                    message.reply('Bot Commands: | `!stats` | `!server` | `!serverlist` | `!ping` | `!aj`');
                     break;
 
                 case 'ping':
