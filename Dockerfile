@@ -1,4 +1,4 @@
-FROM node:14-slim
+FROM node:14-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -9,7 +9,9 @@ WORKDIR /app
 
 ADD . /app
 
-RUN yarn install
+RUN apk add --no-cache --virtual .build-deps alpine-sdk python && \
+            yarn install && \
+            apk del .build-deps
 
 CMD ["node", "index.js"]
 
