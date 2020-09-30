@@ -3,7 +3,7 @@ name: 'container'
 on:
     push:
     schedule:
-        -   cron:  '0 7 * * MON'
+        -   cron: '0 7 * * MON'
 
 jobs:
     release:
@@ -31,9 +31,10 @@ jobs:
 
             -   name: Build docker multiarch images and push to Dockerhub
                 run: |
-                    docker buildx build \
-                    --platform=linux/amd64,linux/arm,linux/arm64 \
+                    docker build \
                     --build-arg BUILD_DATE=${{ steps.current-time.outputs.time }} \
                     --build-arg VCS_REF=${{ env.GITHUB_SHA_SHORT }} \
-                    --output "type=image,push=true" \
                     -t "${{ secrets.DOCKER_IMAGE }}:latest" .
+
+            -   name: docker push
+                run: docker push ${{ secrets.DOCKER_IMAGE }}:latest
