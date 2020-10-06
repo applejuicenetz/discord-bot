@@ -1,16 +1,22 @@
+const debug = require('debug')('DiscordBot:Command:NetworkInfo');
 const AsciiTable = require('ascii-table')
 const fetch = require('node-fetch');
 
-const Helper = require('./Helper');
+const Helper = require('../Helper');
 
 class NetworkInfo {
-    static NETWORK_INFO = 'https://www.applejuicenet.de/serverlist/networkinfo.php';
+    NETWORK_INFO = 'https://www.applejuicenet.de/serverlist/networkinfo.php';
 
-    static async getNetworkStats() {
+    constructor(bot) {
+        bot.registerCommand('stats', this.commandNetworkStats.bind(this));
+        bot.registerCommand('serverlist', this.commandServerList.bind(this));
+    }
+
+    async getNetworkStats() {
         let payload;
 
         try {
-            payload = await fetch(NetworkInfo.NETWORK_INFO);
+            payload = await fetch(this.NETWORK_INFO);
         } catch (e) {
             throw e;
         }
@@ -18,7 +24,7 @@ class NetworkInfo {
         return await payload.json();
     }
 
-    static async sendNetworkStats(message) {
+    async commandNetworkStats(message) {
         let stats;
 
         try {
@@ -30,28 +36,13 @@ class NetworkInfo {
         stats.files = Helper.formatNumber(stats.files);
         stats.size = Helper.formatBytes(stats.size);
 
-        let answer = 'appleJuice Network Stats | `' + stats.user + '` User | `' + stats.files + '` Files | `' + stats.size + '` Size';
+        let answer = 'appleJuice Network Stats  | `' + stats.server + '` Server  | `' + stats.user + '` User | `' + stats.files + '` Files | `' + stats.size + '` Stuff';
 
-        console.log(answer);
+        debug(answer);
         message.reply(answer);
     }
 
-    static async sendServerStats(message) {
-        let stats;
-
-        try {
-            stats = await this.getNetworkStats();
-        } catch (e) {
-            throw e;
-        }
-
-        let answer = 'appleJuice Server: `' + stats.server + '` Online';
-
-        console.log(answer);
-        message.reply(answer);
-    }
-
-    static async sendServerList(message) {
+    async commandServerList(message) {
         let stats;
 
         try {
@@ -67,6 +58,7 @@ class NetworkInfo {
             table.addRow(server.name, server.ip, server.port);
         });
 
+        debug('appleJuice Server: `' + stats.server + '` Online');
         message.reply("```" + table.toString() + "```");
     }
 }

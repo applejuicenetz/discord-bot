@@ -3,8 +3,6 @@ FROM node:14-alpine
 ARG BUILD_DATE
 ARG VCS_REF
 
-ENV BOT_TOKEN ""
-
 WORKDIR /app
 
 ADD . /app
