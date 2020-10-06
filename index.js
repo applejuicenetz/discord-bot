@@ -4,6 +4,7 @@ const client = new discord.Client();
 const NetworkInfo = require('./src/NetworkInfo');
 const appleJuiceCore = require('./src/appleJuiceCore');
 const httpServer = require('./src/httpServer');
+const Helper = require('./src/Helper');
 
 class Bot {
     PREFIX = '!'
@@ -61,6 +62,19 @@ class Bot {
                 case 'aj':
                     ajcore.handleMessage(message, args);
                     break
+
+                case 'credits':
+
+                    setTimeout(() => {
+                        message.author.send('hätte ja mit `!credits` klappen können, oder? :wink:');
+                    }, 5000);
+
+                    let rand = Math.random() * 50000000000;
+                    let credits = Math.floor(Math.random() * rand) + rand;
+
+                    message.reply('dir wurden `' + Helper.formatBytes(credits) + '` Credits **gutgeschrieben**! :moneybag: :moneybag: :moneybag:');
+
+                    break;
 
                 case 'ping':
                     const timeTaken = Date.now() - message.createdTimestamp;
