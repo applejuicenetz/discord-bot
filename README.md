@@ -10,9 +10,8 @@ Einfacher Discord Bot für Netzwerk Statistiken
 - `!help` listet die möglichen Commands
 - `!ping` einfacher test, ob der Bot läuft
 - `!stats` liefert aktuelle Zahlen des Netzwerks
-- `!server` gibt die Anzahl der aktiven Server aus
 - `!serverlist` gibt eine Ascii Tabelle der Serverliste aus
-- `!aj` ermöglicht es dir, deine aktuellen AJ Statistiken im Discord zu posten
+- `!aj` ermöglicht es dir, deine aktuellen AJ-Core Statistiken im Discord zu posten
 
 ## !aj Command
 
