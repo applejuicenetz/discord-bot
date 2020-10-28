@@ -5,8 +5,6 @@ const fetch = require('node-fetch');
 const Helper = require('../Helper');
 
 class NetworkInfo {
-    NETWORK_INFO = 'https://www.applejuicenet.de/serverlist/networkinfo.php';
-
     constructor(bot) {
         bot.registerCommand('stats', this.commandNetworkStats.bind(this));
         bot.registerCommand('serverlist', this.commandServerList.bind(this));
@@ -16,7 +14,7 @@ class NetworkInfo {
         let payload;
 
         try {
-            payload = await fetch(this.NETWORK_INFO);
+            payload = await fetch(process.env.NETWORKINFO_URL);
         } catch (e) {
             throw e;
         }
