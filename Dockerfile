@@ -15,8 +15,8 @@ CMD ["node", "index.js"]
 
 EXPOSE 80
 
-LABEL org.label-schema.name="appleJuiceNET Discord Bot" \
-      org.label-schema.vcs-ref=${VCS_REF} \
-      org.label-schema.build-date=${BUILD_DATE} \
-      org.label-schema.vcs-url="https://github.com/applejuicenet/discord-bot" \
-      org.label-schema.schema-version="1.0"
+LABEL org.opencontainers.image.vendor="appleJuiceNET" \
+      org.opencontainers.image.url="https://applejuicenet.cc" \
+      org.opencontainers.image.created=${BUILD_DATE} \
+      org.opencontainers.image.revision=${VCS_REF} \
+      org.opencontainers.image.source="https://github.com/applejuicenetz/discord-bot"

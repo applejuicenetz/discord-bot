@@ -172,7 +172,7 @@ class appleJuiceCore {
                     embed: {
                         color: 0x0099ff,
                         title: 'appleJuice Core Information Collector',
-                        url: 'https://github.com/applejuicenet/core-information-collector',
+                        url: 'https://github.com/applejuicenetz/core-information-collector',
                         description: 'Du benötigst dieses Tool :point_up_2:',
                         fields: [
                             {
