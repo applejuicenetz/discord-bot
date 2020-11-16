@@ -54,7 +54,7 @@ class appleJuiceCore {
             message.author.send({
                 embed: {
                     title: 'appleJuice Core Information Collector',
-                    url: 'https://github.com/applejuicenet/core-information-collector',
+                    url: 'https://github.com/applejuicenetz/core-information-collector',
                     description: 'Es scheint als hättest Du dieses Tool :point_up_2: noch nicht ausgeführt.'
                 }
             });
