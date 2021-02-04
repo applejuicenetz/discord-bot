@@ -2,6 +2,7 @@ name: 'container'
 
 on:
     push:
+    workflow_dispatch:
     schedule:
         -   cron: '0 7 * * MON'
 

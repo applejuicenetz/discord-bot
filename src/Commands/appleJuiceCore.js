@@ -81,7 +81,21 @@ class appleJuiceCore {
 
     registerHttpServerEndpoint(bot) {
         bot.httpServer.app.post('/api/core-collector', this.verifyToken.bind(this), (req, res) => {
-            this.handleHttpRequest(req.token, req.body.toString());
+            let payload;
+            if (req.is('application/json')) {
+
+                if(!req.body.forward_line) {
+                    debug('json payload forward_line missing', req.body);
+                    res.sendStatus(500);
+                    return;
+                }
+
+                payload = req.body.forward_line;
+            } else {
+                payload = req.body.toString();
+            }
+
+            this.handleHttpRequest(req.token, payload);
             res.send('OK');
         });
 
