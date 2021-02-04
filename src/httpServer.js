@@ -6,6 +6,11 @@ class httpServer {
     constructor() {
         this.app = express();
 
+        this.app.use(bodyParser.json({
+            limit: '128kb',
+            type: 'application/json'
+        }));
+
         this.app.use(bodyParser.raw({
             limit: '128kb',
             type: 'text/plain'
