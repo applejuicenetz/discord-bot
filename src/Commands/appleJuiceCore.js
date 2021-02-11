@@ -9,6 +9,12 @@ const {v4: uuidv4} = require('uuid');
 class appleJuiceCore {
     constructor(bot) {
 
+        if (process.env.COLLECTOR_DOWNLOAD_URL) {
+            this.downloadUrl = process.env.COLLECTOR_DOWNLOAD_URL;
+        } else {
+            this.downloadUrl = 'https://github.com/applejuicenetz/core-information-collector';
+        }
+
         this.bot = bot;
 
         bot.registerCommand('aj', this.commandAJ.bind(this));
@@ -54,8 +60,8 @@ class appleJuiceCore {
             message.author.send({
                 embed: {
                     title: 'appleJuice Core Information Collector',
-                    url: 'https://github.com/applejuicenetz/core-information-collector',
-                    description: 'Es scheint als hättest Du dieses Tool :point_up_2: noch nicht ausgeführt.'
+                    url: this.downloadUrl,
+                    description: 'Es scheint als hättest Du den AJCollector :point_up_2: noch nicht ausgeführt.'
                 }
             });
         }
@@ -84,7 +90,7 @@ class appleJuiceCore {
             let payload;
             if (req.is('application/json')) {
 
-                if(!req.body.forward_line) {
+                if (!req.body.forward_line) {
                     debug('json payload forward_line missing', req.body);
                     res.sendStatus(500);
                     return;
@@ -128,7 +134,7 @@ class appleJuiceCore {
 
     async resetToken(message) {
         this.db.run('DELETE FROM aj_cores WHERE user_id = ?', [message.author.id]).then(() => {
-            message.author.send('Dein Token und die damit verknüpften Daten wurden gelöscht! :white_check_mark: ');
+            message.author.send('Dein Token und die dazu hinterlegten Daten wurden gelöscht! :white_check_mark: ');
             debug('data for user %s deleted', message.author.id);
         });
     }
@@ -160,7 +166,7 @@ class appleJuiceCore {
         let ret = false;
         await this.db.get('SELECT token FROM aj_cores WHERE user_id = ?', [userId]).then(row => {
             ret = row !== undefined
-            debug('check token for userId %s (%s)', userId, row.token);
+            debug('check token for userId %s (%s)', userId, row ? row.token : '');
 
         }).catch(err => {
             debug(err);
@@ -186,12 +192,16 @@ class appleJuiceCore {
                     embed: {
                         color: 0x0099ff,
                         title: 'appleJuice Core Information Collector',
-                        url: 'https://github.com/applejuicenetz/core-information-collector',
+                        url: this.downloadUrl,
                         description: 'Du benötigst dieses Tool :point_up_2:',
                         fields: [
                             {
-                                name: 'Dein Token',
+                                name: 'Dein persönliches Token',
                                 value: token
+                            },
+                            {
+                                name: 'URL für den Collector',
+                                value: process.env.COLLECTOR_URI + '/api/core-collector'
                             }
                         ]
                     }
