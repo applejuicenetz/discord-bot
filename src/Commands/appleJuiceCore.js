@@ -28,14 +28,41 @@ class appleJuiceCore {
 
     async commandAJ(message, args) {
         if (args.length) {
+
+            let data = await this.getPayload4Userid(message.author.id);
+
             switch (args[0]) {
                 case 'reset':
                     this.resetToken(message);
                     break;
 
+                case 'status':
+                    message.author.send({
+                            embed: {
+                                fields: [
+                                    {
+                                        name: 'token',
+                                        value: data.token
+                                    },
+                                    {
+                                        name: 'created',
+                                        value: data.created_at
+                                    },
+                                    {
+                                        name: 'updated',
+                                        value: data.updated_at !== data.created_at ? data.updated_at : 'noch keine Daten'
+                                    }
+                                ]
+                            }
+                        }
+                    );
+
+                    break;
+
                 default:
                     let answer = "Mögliche Befehle:\n" +
-                        '`' + this.bot.PREFIX + "aj reset` - löschen dein Token inkl. aller Daten\n"
+                        '`' + this.bot.PREFIX + "aj reset` - löscht dein Token und alle dazugehörigen Daten\n" +
+                        '`' + this.bot.PREFIX + "aj status` - zeigt dir dein Token und einige andere Infos\n"
                     ;
 
                     message.author.send(answer);
@@ -54,8 +81,16 @@ class appleJuiceCore {
     async postMessage(message) {
         let answer = await this.getPayload4Userid(message.author.id);
 
-        if (answer) {
-            message.reply(answer);
+        if (answer && answer.payload) {
+            let now = new Date();
+            let notify = now.setMinutes(now.getMinutes() - 60);
+            let updatedAt = Date.parse(answer.updated_at);
+
+            if (updatedAt < notify) {
+                message.author.send('Deine Daten für `' + this.bot.PREFIX + 'aj` sind älter als 60 Minuten!');
+            }
+
+            message.reply(answer.payload);
         } else {
             message.author.send({
                 embed: {
@@ -77,7 +112,7 @@ class appleJuiceCore {
 
         cron.schedule('*/15 * * * *', () => {
             let now = new Date();
-            now.setDate(now.getDate() - 7); // delete outdated rows older than X days
+            now.setDate(now.getDate() - 30); // delete outdated rows older than X days
             this.db.run('DELETE FROM aj_cores WHERE updated_at <= ?', [now.toISOString()]);
             debug('Cron | deleted outdated rows');
         });
@@ -102,7 +137,7 @@ class appleJuiceCore {
             }
 
             this.handleHttpRequest(req.token, payload);
-            res.send('OK');
+            res.sendStatus(200);
         });
 
         debug('httpServer Endpoint registered');
@@ -153,8 +188,8 @@ class appleJuiceCore {
     async getPayload4Userid(userId) {
         let ret = null;
 
-        await this.db.get('SELECT payload FROM aj_cores WHERE user_id = ?', [userId]).then(row => {
-            ret = row.payload;
+        await this.db.get('SELECT * FROM aj_cores WHERE user_id = ?', [userId]).then(row => {
+            ret = row;
         }).catch(err => {
             debug(err);
         });
@@ -202,6 +237,10 @@ class appleJuiceCore {
                             {
                                 name: 'URL für den Collector',
                                 value: process.env.COLLECTOR_URI + '/api/core-collector'
+                            },
+                            {
+                                name: 'weitere hilfe',
+                                value: '`' + this.bot.PREFIX + 'aj help`'
                             }
                         ]
                     }
