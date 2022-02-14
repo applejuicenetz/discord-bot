@@ -32,9 +32,9 @@
     "debug": "^4.3.3",
     "discord.js": "^12.5.3",
     "express": "^4.17.2",
-    "node-cron": "^2.0.3",
+    "node-cron": "^3.0.0",
     "node-fetch": "^2.6.7",
-    "sqlite-async": "^1.1.2",
+    "better-sqlite3": "^7.5.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

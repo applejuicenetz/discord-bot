@@ -8,8 +8,8 @@ WORKDIR /app
 
 ADD . /app
 
-RUN apk add --no-cache --virtual .build-deps alpine-sdk python2 && \
-            yarn install && \
+RUN apk add --no-cache --virtual .build-deps alpine-sdk python3 && \
+            yarn install --production=true && \
             apk del .build-deps
 
 CMD ["node", "index.js"]

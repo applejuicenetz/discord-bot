@@ -2,8 +2,11 @@
 
 Einfacher Discord Bot für Netzwerk Statistiken
 
-![](https://github.com/applejuicenetz/discord-bot/workflows/container/badge.svg)
+![](https://img.shields.io/github/v/tag/applejuicenetz/discord-bot.svg?label=version)
 ![](https://img.shields.io/github/license/applejuicenetz/discord-bot.svg)
+![](https://github.com/applejuicenetz/discord-bot/actions/workflows/container.yml/badge.svg)
+![](https://img.shields.io/docker/pulls/applejuicenetz/discord-bot)
+![](https://img.shields.io/docker/image-size/applejuicenetz/discord-bot)
 
 ### Commands
 - `!help` listet die möglichen Commands
@@ -14,6 +17,7 @@ Einfacher Discord Bot für Netzwerk Statistiken
 
 ## !aj Command
 
-Du benötigt zusätzlich unseren [core-information-collector](https://github.com/applejuicenetz/core-information-collector) auf einem deiner Geräte.
+Du benötigt zusätzlich unseren [Collector](https://github.com/applejuicenetz/core-information-collector) auf einem deiner Geräte.
 
-Solltest du dein Token verloren haben, kannst du deine Daten via `!aj reset` zurücksetzen lassen.
+Solltest du dein Token verloren haben, 
+kannst du deine Daten via `!aj status` ausgeben oder mit `!aj reset` zurücksetzen lassen.
