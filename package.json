@@ -1,7 +1,7 @@
 {
   "name": "applejuicenet-discord-bot",
-  "version": "1.1.0",
-  "description": "Einfacher Discord Bot für Netzwerk Statistiken",
+  "version": "1.2.0",
+  "description": "simple discord bot for german appleJuice p2p network",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,9 +11,16 @@
     "url": "git+https://github.com/applejuicenetz/discord-bot.git"
   },
   "keywords": [
-    "applejuicenet"
+    "applejuicenet",
+    "applejuicenetz",
+    "applejuice",
+    "ajfsp",
+    "discord",
+    "discord-bot",
+    "bot",
+    "p2p"
   ],
-  "author": "appleJuiceNET",
+  "author": "appleJuiceNETZ",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/applejuicenetz/discord-bot/issues"
@@ -21,13 +28,16 @@
   "homepage": "https://github.com/applejuicenetz/discord-bot#readme",
   "dependencies": {
     "ascii-table": "^0.0.9",
-    "body-parser": "^1.19.0",
-    "debug": "^4.2.0",
-    "discord.js": "^12.3.1",
-    "express": "^4.17.1",
+    "body-parser": "^1.19.1",
+    "debug": "^4.3.3",
+    "discord.js": "^12.5.3",
+    "express": "^4.17.2",
     "node-cron": "^2.0.3",
-    "node-fetch": "^2.6.0",
-    "sqlite-async": "^1.1.0",
-    "uuid": "^8.3.0"
+    "node-fetch": "^2.6.7",
+    "sqlite-async": "^1.1.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

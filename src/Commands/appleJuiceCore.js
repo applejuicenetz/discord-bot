@@ -12,7 +12,7 @@ class appleJuiceCore {
         if (process.env.COLLECTOR_DOWNLOAD_URL) {
             this.downloadUrl = process.env.COLLECTOR_DOWNLOAD_URL;
         } else {
-            this.downloadUrl = 'https://github.com/applejuicenetz/core-information-collector';
+            this.downloadUrl = 'https://applejuicenetz.github.io/downloads/applejuice-collector/';
         }
 
         this.bot = bot;
@@ -41,15 +41,20 @@ class appleJuiceCore {
                             embed: {
                                 fields: [
                                     {
-                                        name: 'token',
+                                        name: 'URL für den Collector',
+                                        value: process.env.COLLECTOR_URI + '/api/core-collector'
+                                    },
+                                    {
+                                        name: 'Dein persönliches Token',
                                         value: data.token
                                     },
                                     {
-                                        name: 'created',
+                                        name: 'Token erstellt',
                                         value: data.created_at
                                     },
+
                                     {
-                                        name: 'updated',
+                                        name: 'zuletzt empfangene Daten',
                                         value: data.updated_at !== data.created_at ? data.updated_at : 'noch keine Daten'
                                     }
                                 ]
@@ -94,23 +99,23 @@ class appleJuiceCore {
         } else {
             message.author.send({
                 embed: {
-                    title: 'appleJuice Core Information Collector',
+                    title: 'appleJuice Collector',
                     url: this.downloadUrl,
-                    description: 'Es scheint als hättest Du den AJCollector :point_up_2: noch nicht ausgeführt.'
+                    description: 'Es scheint als hättest Du den appleJuice Collector :point_up_2: noch nicht ausgeführt.'
                 }
             });
         }
     }
 
     registerCron() {
-        cron.schedule('*/5 * * * *', () => {
+        cron.schedule('0 * * * *', () => {
             let now = new Date();
-            now.setMinutes(now.getMinutes() - 30); // delete unused tokens older than X minutes
+            now.setMinutes(now.getMinutes() - 60); // delete unused tokens older than X minutes
             this.db.run('DELETE FROM aj_cores WHERE payload IS NULL AND created_at <= ?', [now.toISOString()]);
             debug('Cron | deleted unused tokens');
         });
 
-        cron.schedule('*/15 * * * *', () => {
+        cron.schedule('0 * * * *', () => {
             let now = new Date();
             now.setDate(now.getDate() - 30); // delete outdated rows older than X days
             this.db.run('DELETE FROM aj_cores WHERE updated_at <= ?', [now.toISOString()]);
@@ -226,7 +231,7 @@ class appleJuiceCore {
             message.author.send({
                     embed: {
                         color: 0x0099ff,
-                        title: 'appleJuice Core Information Collector',
+                        title: 'appleJuice Collector',
                         url: this.downloadUrl,
                         description: 'Du benötigst dieses Tool :point_up_2:',
                         fields: [
