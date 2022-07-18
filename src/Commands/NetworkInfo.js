@@ -28,7 +28,9 @@ class NetworkInfo {
         try {
             stats = await this.getNetworkStats();
         } catch (e) {
-            throw e;
+            debug(e);
+            message.reply('network stats not reachable?!');
+            return;
         }
 
         stats.files = Helper.formatNumber(stats.files);
@@ -46,7 +48,9 @@ class NetworkInfo {
         try {
             stats = await this.getNetworkStats();
         } catch (e) {
-            throw e;
+            debug(e);
+            message.reply('network stats not reachable?!');
+            return;
         }
 
         let table = new AsciiTable();

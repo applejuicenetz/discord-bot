@@ -4,6 +4,8 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
+ENV NETWORKINFO_URL="http://www.applejuicenet.cc/serverlist/networkinfo.php"
+
 WORKDIR /app
 
 ADD . /app
