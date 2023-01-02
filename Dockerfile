@@ -10,7 +10,8 @@ ENV NETWORKINFO_URL="http://www.applejuicenet.cc/serverlist/networkinfo.php" \
     DEBUG="DiscordBot:*" \
     PREFIX="!" \
     REDIRECT_URL="https://applejuicenet.cc" \
-    STORAGE_PATH="/app/storage"
+    STORAGE_PATH="/app/storage" \
+    NODE_ENV="production"
 
 WORKDIR /app
 
