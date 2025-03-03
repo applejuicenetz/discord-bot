@@ -9,11 +9,7 @@ const {v4: uuidv4} = require('uuid');
 class appleJuiceCore {
     constructor(bot) {
 
-        if (process.env.COLLECTOR_DOWNLOAD_URL) {
-            this.downloadUrl = process.env.COLLECTOR_DOWNLOAD_URL;
-        } else {
-            this.downloadUrl = 'https://applejuicenetz.github.io/downloads/applejuice-collector/';
-        }
+        this.downloadUrl = process.env.COLLECTOR_DOWNLOAD_URL || 'https://applejuicenetz.github.io/downloads/applejuice-collector/';
 
         this.bot = bot;
 
@@ -38,7 +34,7 @@ class appleJuiceCore {
 
                 case 'status':
                     message.author.send({
-                            embed: {
+                            embeds: [{
                                 fields: [
                                     {
                                         name: 'URL für den Collector',
@@ -58,7 +54,7 @@ class appleJuiceCore {
                                         value: data.updated_at !== data.created_at ? data.updated_at : 'noch keine Daten'
                                     }
                                 ]
-                            }
+                            }]
                         }
                     );
 
@@ -98,11 +94,12 @@ class appleJuiceCore {
             message.reply(answer.payload);
         } else {
             message.author.send({
-                embed: {
+                embeds: [{
                     title: 'appleJuice Collector',
                     url: this.downloadUrl,
+                    color: 0x0099ff,
                     description: ':point_up_2: Es scheint als hättest Du den appleJuice Collector noch nicht ausgeführt.'
-                }
+                }]
             });
         }
     }
@@ -155,8 +152,8 @@ class appleJuiceCore {
     initStorage() {
         try {
             this.db = Database(process.env.STORAGE_PATH + '/aj_core.sqlite');
+            this.db.pragma('journal_mode = WAL');
             debug('storage initialized');
-
         } catch (err) {
             debug(err);
             return;
@@ -252,7 +249,7 @@ class appleJuiceCore {
         debug('token for userId %s created', message.author.id);
 
         message.author.send({
-                embed: {
+                embeds: [{
                     color: 0x0099ff,
                     title: 'appleJuice Collector',
                     url: this.downloadUrl,
@@ -271,7 +268,7 @@ class appleJuiceCore {
                             value: '`' + this.bot.PREFIX + 'aj help`'
                         }
                     ]
-                }
+                }]
             }
         );
     }

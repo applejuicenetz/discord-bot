@@ -1,0 +1,37 @@
+name: 'cleanup'
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *'
+
+jobs:
+  clean_workflow_runs:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: clean workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 7
+          keep_minimum_runs: 5
+
+  remove_package_versions:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: purge untagged container images
+        uses: dylanratcliffe/delete-untagged-containers@main
+        with:
+          org: ${{ github.repository_owner }}
+          package_name: ${{ github.event.repository.name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: camargo/delete-untagged-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

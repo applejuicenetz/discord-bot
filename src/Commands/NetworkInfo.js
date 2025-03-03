@@ -1,6 +1,5 @@
 const debug = require('debug')('DiscordBot:Command:NetworkInfo');
 const AsciiTable = require('ascii-table')
-const fetch = require('node-fetch');
 
 const Helper = require('../Helper');
 

@@ -2,7 +2,6 @@
 
 Einfacher Discord Bot für Netzwerk Statistiken
 
-![](https://img.shields.io/github/v/tag/applejuicenetz/discord-bot.svg?label=version)
 ![](https://img.shields.io/github/license/applejuicenetz/discord-bot.svg)
 ![](https://github.com/applejuicenetz/discord-bot/actions/workflows/container.yml/badge.svg)
 ![](https://img.shields.io/docker/pulls/applejuicenetz/discord-bot)
