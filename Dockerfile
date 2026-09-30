@@ -1,4 +1,4 @@
-FROM node:24-alpine
+FROM node:26-alpine
 
 ENV NETWORKINFO_URL="http://www.applejuicenet.cc/serverlist/networkinfo.php" \
     COLLECTOR_URI="http://localhost:80" \
