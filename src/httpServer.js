@@ -16,7 +16,7 @@ class httpServer {
             type: 'text/plain'
         }));
 
-        this.app.get('*', (req, res) => {
+        this.app.get('/{*path}', (req, res) => {
             res.redirect(process.env.REDIRECT_URL);
         });
 

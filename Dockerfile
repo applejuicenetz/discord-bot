@@ -1,7 +1,6 @@
-FROM node:22-alpine
+FROM node:24-alpine
 
 ENV NETWORKINFO_URL="http://www.applejuicenet.cc/serverlist/networkinfo.php" \
-    BOT_TOKEN="" \
     COLLECTOR_URI="http://localhost:80" \
     DEBUG="DiscordBot:*" \
     PREFIX="!" \
@@ -11,9 +10,12 @@ ENV NETWORKINFO_URL="http://www.applejuicenet.cc/serverlist/networkinfo.php" \
 
 WORKDIR /app
 
-ADD . /app
+RUN apk add --no-cache python3 make g++
 
-RUN yarn install
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+COPY . .
 
 CMD ["node", "index.js"]
 
